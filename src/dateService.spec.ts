@@ -291,10 +291,13 @@ describe("redeem function", () => {
 
   it("should fail when redeeming a reward that has already expired", (done) => {
     try {
-      const date = new Date("2021-12-02T10:10:10Z");
+      const date = new Date(Date.now());
       const past = new Date(date);
-      past.setUTCDate(past.getUTCDate() - 3);
+      // This can potentially fail when the test is run at week start since
+      // the past of such date is last week.
+      past.setUTCDate(past.getUTCDate() - 1);
       generateDates("1", date.toISOString());
+      generateDates("1", past.toISOString());
       redeem("1", past.toISOString());
       done.fail();
     } catch (e) {
