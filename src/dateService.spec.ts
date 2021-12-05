@@ -293,8 +293,6 @@ describe("redeem function", () => {
     try {
       const date = new Date(Date.now());
       const past = new Date(date);
-      // This can potentially fail when the test is run at week start since
-      // the past of such date is last week.
       past.setUTCDate(past.getUTCDate() - 1);
       generateDates("1", date.toISOString());
       generateDates("1", past.toISOString());
