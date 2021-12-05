@@ -31,7 +31,7 @@ According to the problem statement:
 > After calling the GET request above, I should then be able to request
 > `PATCH /users/1/rewards/2020-03-18T00:00:00Z/redeem` (to simplify things we're using availableAt as the reward ID)
 
-My solution is a bit more robust since it can also handle _**any time frame within the current date itself**_. For 
+My solution is a bit more robust since it can also handle _**any time frame within the current date itself**_. For
 example, both
 
 ```

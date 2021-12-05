@@ -51,7 +51,6 @@ app.patch("/users/:id/rewards/:date/redeem", (req, res) => {
 
   console.log(`Updating data for user ${id} at ${date}`);
 
-  // Move to the next middleware for response formatting.
   res.json(prepResponse(redeem(id, date)));
 });
 

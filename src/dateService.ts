@@ -1,9 +1,10 @@
 import { IDateEntry, RuntimeError } from "./types.d";
 
 // Here we cache by the beginning date of the week. So that if multiple requests are within a week
-// we don't have to generate the entire week all over again. Note that typically persistent states
-// should be put into a class with appropriate methods to interact with the internal storage to
-// avoid naughty modifications. Here I'm just using a simple object to cache things.
+// we don't have to generate the entire week all over again. Note that this means this cache is a
+// singleton, which is generally frowned upon due to its shared states and testing difficulty. As
+// this is a simple server, I've opt'ed to use this to not overcomplicate things. Otherwise, cache
+// is generally tied to the application lifecycle instead.
 let cache: { [id: string]: { [weekStart: string]: IDateEntry[] } } = {};
 
 // This is mainly used for testing to make sure there is no state contamination.
@@ -13,9 +14,9 @@ export const clearCache = () => {
 
 /**
  * Given a date, calculate and return the date of the beginning of the week that the date belongs
- * in. For example, let's say we have we the following week (from Sunday): [ 1 2 3 4 5 6 7], then
- * calling this function with any date within such week will return [ 1 ] since that's the beginning
- * of the week.
+ * in. For example, let's say we have we the following week (from Sunday): [ 1 2 3 4 5 6 7 ], then
+ * calling this function with any date within such week will return [ 1 ] since that's the
+ * beginning of the week.
  *
  * Note that this function does not modify the date.
  */
@@ -30,7 +31,6 @@ export const getWeekStart = (d: Date): Date => {
   // date.getUTCDate() returns the date of current month
   // date.getUTCDay() returns the day of current week
   // date.getUTCDate() - date.getUTCDay() returns the date of the beginning of the current week
-  // (which can be negative)
   weekStart.setUTCDate(weekStart.getUTCDate() - weekStart.getUTCDay());
 
   return new Date(
@@ -43,8 +43,8 @@ export const getWeekStart = (d: Date): Date => {
 };
 
 /**
- * Function used to trim out the millis part to comform with the problem statement. This function is mostly used for
- * date formating before returning the response.
+ * Function used to trim out the millis part to comform with the problem statement. This function
+ * is mostly used for date formating before returning the response.
  */
 export const toStringWithoutMillis = (d: Date): string => {
   if (d.toString().includes("Invalid")) {
@@ -60,8 +60,7 @@ export const toStringWithoutMillis = (d: Date): string => {
  * Given an ID and date, generate and cache the weekly rewards against the ID. Multiple calls with
  * the same ID and a given date within an already generated week will return the same week.
  *
- * This function will throw if:
- * - wrong date format
+ * This function will throw if passed a date with wrong format.
  */
 export const generateDates = (id: string, dateStr: string): IDateEntry[] => {
   const date = new Date(dateStr);
