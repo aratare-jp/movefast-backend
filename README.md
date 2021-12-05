@@ -1,5 +1,7 @@
 # MoveFast Backend Technical Test
 
+[![CI](https://github.com/aratare-jp/movefast-backend/actions/workflows/tests.yml/badge.svg)](https://github.com/aratare-jp/movefast-backend/actions/workflows/tests.yml)
+
 Hi there, this is a brief description and/or explanation of my solution to the technical test.
 
 ## Commands
