@@ -43,12 +43,6 @@ app.patch("/users/:id/rewards/:date/redeem", (req, res) => {
   const id = req.params?.id;
   const date = req.params?.date;
 
-  if (!date) {
-    const err = new Error("Date is required.") as RuntimeError;
-    err.errorType = "INVALID_ARGUMENT";
-    throw err;
-  }
-
   console.log(`Updating data for user ${id} at ${date}`);
 
   res.json(prepResponse(redeem(id, date)));
