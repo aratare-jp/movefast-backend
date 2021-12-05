@@ -1,6 +1,7 @@
 # MoveFast Backend Technical Test
 
-[![CI](https://github.com/aratare-jp/movefast-backend/actions/workflows/tests.yml/badge.svg)](https://github.com/aratare-jp/movefast-backend/actions/workflows/tests.yml)
+[![GitHub Action](https://github.com/aratare-jp/movefast-backend/actions/workflows/tests.yml/badge.svg)](https://github.com/aratare-jp/movefast-backend/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/aratare-jp/movefast-backend/branch/main/graph/badge.svg?token=WsYq6gAcic)](https://codecov.io/gh/aratare-jp/movefast-backend)
 
 Hi there, this is a brief description and/or explanation of my solution to the technical test.
 
